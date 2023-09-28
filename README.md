@@ -28,7 +28,7 @@ version makes a couple of minor changes allowing for:
 
 1. First you'll need LaTeX. Instructions on obtaining it can be found here:
    http://latex-project.org/ftp.html
-2. Clone or otherwise download [example.tex](/example.tex).
+2. Clone or otherwise download [template.tex](/template.tex).
 3. Compiling from the command line will look like the following:
 
    ```bash
