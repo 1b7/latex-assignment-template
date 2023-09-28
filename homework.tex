@@ -1,4 +1,10 @@
-\documentclass{article}
+% Original Template forked from: 
+% https://github.com/jdavis/latex-homework-template/blob/master/homework.tex
+
+% ┌────────────────────────┐
+% │     Document Setup     │
+% └────────────────────────┘
+\documentclass[11pt]{article}
 
 \usepackage{fancyhdr}
 \usepackage{extramarks}
@@ -8,13 +14,23 @@
 \usepackage{tikz}
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
+\usepackage{titlesec}
+\usepackage{enumerate}
+
+% --- Font Settings ---
+\RequirePackage{roboto}
+\RequirePackage[default,opentype]{sourcesanspro}
+
+\newcommand*{\headerfont}{\roboto}
+\newcommand*{\headerfontlight}{\robotolight}
+\newcommand*{\footerfont}{\sourcesanspro}
+\newcommand*{\bodyfont}{\sourcesanspro}
+\newcommand*{\bodyfontlight}{\sourcesansprolight}
+\titleformat{\section}{\normalfont\fontsize{11pt}{12pt}\selectfont\bfseries}{\thesection}{1em}{}
 
 \usetikzlibrary{automata,positioning}
 
-%
-% Basic Document Settings
-%
-
+% --- Basic Document Settings ---
 \topmargin=-0.45in
 \evensidemargin=0in
 \oddsidemargin=0in
@@ -25,30 +41,28 @@
 \linespread{1.1}
 
 \pagestyle{fancy}
-\lhead{\hmwkAuthorName}
-\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
-\rhead{\firstxmark}
+\lhead{\moduleCode}
+\chead{\hwkTitle}
+\rhead{\authorName}
 \lfoot{\lastxmark}
 \cfoot{\thepage}
 
-\renewcommand\headrulewidth{0.4pt}
-\renewcommand\footrulewidth{0.4pt}
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}
 
 \setlength\parindent{0pt}
 
-%
-% Create Problem Sections
-%
 
+% --- Create Problem Sections ---
 \newcommand{\enterProblemHeader}[1]{
-    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
-    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{}{Question \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Question \arabic{#1} (continued)}{Question \arabic{#1} continued on next page\ldots}\nobreak{}
 }
 
 \newcommand{\exitProblemHeader}[1]{
-    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Question \arabic{#1} (continued)}{Question \arabic{#1} continued on next page\ldots}\nobreak{}
     \stepcounter{#1}
-    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+    \nobreak\extramarks{Question \arabic{#1}}{}\nobreak{}
 }
 
 \setcounter{secnumdepth}{0}
@@ -57,63 +71,49 @@
 \setcounter{homeworkProblemCounter}{1}
 \nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
 
-%
-% Homework Problem Environment
-%
-% This environment takes an optional argument. When given, it will adjust the
-% problem counter. This is useful for when the problems given for your
-% assignment aren't sequential. See the last 3 problems of this template for an
-% example.
-%
-\newenvironment{homeworkProblem}[1][-1]{
+% --- Homework Problem Environment ---
+% Takes optional arguments;
+% 1: Manually set the problem-counter.
+% 2: Text for an in-line problem statement.
+\newenvironment{homeworkProblem}[2][-1]{
     \ifnum#1>0
         \setcounter{homeworkProblemCounter}{#1}
     \fi
-    \section{Problem \arabic{homeworkProblemCounter}}
+
+    \if #2\empty
+        \section{Q\arabic{homeworkProblemCounter}}
+    \else
+        \section{Q\arabic{homeworkProblemCounter}: \normalfont{#2}}
+    \fi
     \setcounter{partCounter}{1}
     \enterProblemHeader{homeworkProblemCounter}
 }{
     \exitProblemHeader{homeworkProblemCounter}
 }
 
-%
-% Homework Details
-%   - Title
-%   - Due date
-%   - Class
-%   - Section/Time
-%   - Instructor
-%   - Author
-%
+% ┌────────────────────────┐
+% │   User Configuration   │
+% └────────────────────────┘
+% --- Document Details ---
+\newcommand{\hwkTitle}{Tutorial 1}
+\newcommand{\moduleCode}{COMP101}
+\newcommand{\moduleName}{Module Name}
+\newcommand{\authorName}{First Last}
 
-\newcommand{\hmwkTitle}{Homework\ \#2}
-\newcommand{\hmwkDueDate}{February 12, 2014}
-\newcommand{\hmwkClass}{Calculus}
-\newcommand{\hmwkClassTime}{Section A}
-\newcommand{\hmwkClassInstructor}{Professor Isaac Newton}
-\newcommand{\hmwkAuthorName}{\textbf{Josh Davis} \and \textbf{Davis Josh}}
 
-%
-% Title Page
-%
-
+% --- Title ---
 \title{
     \vspace{2in}
-    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
-    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
-    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \textmd{\textbf{\moduleCode: \moduleName\\ \hwkTitle}}\\
     \vspace{3in}
 }
 
-\author{\hmwkAuthorName}
-\date{}
+\author{\authorName}
+\date{\today}
 
 \renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
 
-%
-% Various Helper Commands
-%
-
+% --- Various Helper Commands ---
 % Useful for algorithms
 \newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
 
@@ -141,9 +141,8 @@
 
 \pagebreak
 
-\begin{homeworkProblem}
-    Give an appropriate positive constant \(c\) such that \(f(n) \leq c \cdot
-    g(n)\) for all \(n > 1\).
+\begin{homeworkProblem}{Give an appropriate positive constant \(c\) such that \(f(n) \leq c \cdot
+    g(n)\) for all \(n > 1\).}
 
     \begin{enumerate}
         \item \(f(n) = n^2 + n + 1\), \(g(n) = 2n^3\)
@@ -213,10 +212,9 @@
 
 \pagebreak
 
-\begin{homeworkProblem}
+\begin{homeworkProblem}{
     Let \(\Sigma = \{0, 1\}\). Construct a DFA \(A\) that recognizes the
-    language that consists of all binary numbers that can be divided by 5.
-    \\
+    language that consists of all binary numbers that can be divided by 5.}
 
     Let the state \(q_k\) indicate the remainder of \(k\) divided by 5. For
     example, the remainder of 2 would correlate to state \(q_2\) because \(7
@@ -284,9 +282,7 @@
     for input 1. Continuing this gives us the Figure~\ref{fig:multiple5}.
 \end{homeworkProblem}
 
-\begin{homeworkProblem}
-    Write part of \alg{Quick-Sort($list, start, end$)}
-
+\begin{homeworkProblem}{Write part of \alg{Quick-Sort($list, start, end$)}}
     \begin{algorithm}[]
         \begin{algorithmic}[1]
             \Function{Quick-Sort}{$list, start, end$}
@@ -304,12 +300,11 @@
 
 \pagebreak
 
-\begin{homeworkProblem}
+\begin{homeworkProblem}{
     Suppose we would like to fit a straight line through the origin, i.e.,
     \(Y_i = \beta_1 x_i + e_i\) with \(i = 1, \ldots, n\), \(\E [e_i] = 0\),
     and \(\Var [e_i] = \sigma^2_e\) and \(\Cov[e_i, e_j] = 0, \forall i \neq
-    j\).
-    \\
+    j\).}
 
     \part
 
@@ -470,10 +465,10 @@
 
 \pagebreak
 
-\begin{homeworkProblem}
+\begin{homeworkProblem}{
     Prove a polynomial of degree \(k\), \(a_kn^k + a_{k - 1}n^{k - 1} + \hdots
     + a_1n^1 + a_0n^0\) is a member of \(\Theta(n^k)\) where \(a_k \hdots a_0\)
-    are nonnegative constants.
+    are nonnegative constants.}
 
     \begin{proof}
         To prove that \(a_kn^k + a_{k - 1}n^{k - 1} + \hdots + a_1n^1 +
@@ -519,21 +514,21 @@
 %
 
 % Jump to problem 18
-\begin{homeworkProblem}[18]
-    Evaluate \(\sum_{k=1}^{5} k^2\) and \(\sum_{k=1}^{5} (k - 1)^2\).
+\begin{homeworkProblem}[18]{
+    Evaluate \(\sum_{k=1}^{5} k^2\) and \(\sum_{k=1}^{5} (k - 1)^2\).}
 \end{homeworkProblem}
 
 % Continue counting to 19
-\begin{homeworkProblem}
-    Find the derivative of \(f(x) = x^4 + 3x^2 - 2\)
+\begin{homeworkProblem}{
+    Find the derivative of \(f(x) = x^4 + 3x^2 - 2\)}
 \end{homeworkProblem}
 
 % Go back to where we left off
-\begin{homeworkProblem}[6]
+\begin{homeworkProblem}[6]{
     Evaluate the integrals
     \(\int_0^1 (1 - x^2) \dx\)
     and
-    \(\int_1^{\infty} \frac{1}{x^2} \dx\).
+    \(\int_1^{\infty} \frac{1}{x^2} \dx\).}
 \end{homeworkProblem}
 
 \end{document}
