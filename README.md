@@ -34,5 +34,5 @@ version makes a couple of minor changes allowing for:
    ```bash
    $ latexmk template.tex
    ```
-4. Or you can use [TeXShop][texshop] or a similar native client to typeset the
+4. Or you can use texshop or a similar native client to typeset the
    LaTeX file.
